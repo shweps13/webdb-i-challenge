@@ -24,6 +24,20 @@ server.get('/api/accounts', (req, res) => {
     })
 });
 
+server.get('/api/accounts/:id', (req, res) => {
+    db.select('*')
+    .from('accounts')
+    .where('id', '=', req.params.id)
+    .first()
+    .then(account => {
+      res.status(200).json(account);
+  })
+  .catch(error => {
+      res.status(500).json(error);
+  })
+
+});
+
 server.post('/api/accounts', (req, res) => {
     const postData = req.body;
     //validate the data
